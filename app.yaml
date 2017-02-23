@@ -1,5 +1,5 @@
 application: agile-seeker-642
-version: 1
+version: 2
 runtime: python
 api_version: 1
 
@@ -14,3 +14,14 @@ handlers:
 
 - url: .*
   script: main.py
+
+- url: /(flavours)
+  mime_type: text/html
+  static_files: static/\1.html
+  upload: static/(.+)
+  
+error_handlers:
+  - file: default_error.html
+
+  - error_code: over_quota
+    file: over_quota.html
